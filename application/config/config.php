@@ -23,12 +23,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$base_url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-$base_url .= "://". @$_SERVER['HTTP_HOST'];
-$base_url .=     str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+if (ENVIRONMENT === 'production')
+{
+    $config['base_url'] = 'https://dev.mobicloudtechnologies.com/smartwork//';
+}
+elseif (ENVIRONMENT === 'testing')
+{
+    $config['base_url'] = 'https://dev.mobicloudtechnologies.com/smartwork//';
+}
+else
+{
+    // -----------------------------------------------------------
+    // LOCALHOST / DEVELOPMENT (AUTO-DETECT)
+    // -----------------------------------------------------------
 
-$config['base_url'] = $base_url;
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://';
+
+    $host = $_SERVER['HTTP_HOST'];
+
+    $path = str_replace(
+        basename($_SERVER['SCRIPT_NAME']),
+        '',
+        $_SERVER['SCRIPT_NAME']
+    );
+
+    $config['base_url'] = $protocol . $host . $path;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Application Name
+|--------------------------------------------------------------------------
+*/
+$config['app_name'] = 'Service Booking';
 $config["app_name"] = 'Service Booking';
+
 
 $config["SENDER_EMAIL"] = "";
 $config["SENDER_NAME"] = "";
@@ -42,7 +73,7 @@ $config["SENDER_NAME"] = "";
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
