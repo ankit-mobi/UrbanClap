@@ -25,11 +25,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 if (ENVIRONMENT === 'production')
 {
-    $config['base_url'] = 'https://dev.mobicloudtechnologies.com/smartwork//';
+    $config['base_url'] = 'https://dev.mobicloudtechnologies.com/smartwork/urban-clap/';
 }
 elseif (ENVIRONMENT === 'testing')
 {
-    $config['base_url'] = 'https://dev.mobicloudtechnologies.com/smartwork//';
+    $config['base_url'] = 'https://dev.mobicloudtechnologies.com/smartwork/urban-clap/';
 }
 else
 {
